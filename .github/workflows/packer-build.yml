@@ -46,6 +46,8 @@ jobs:
         env:
           ARM_CLIENT_ID: ${{ steps.secrets.outputs.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: "ef738ee8-d657-4262-9b0d-c09dd4c2ec68"
+          ARM_TENANT_ID: "71551aaf-eb3b-4c79-b082-e2be0e38affa"
 
       - name: Terraform Init
         run: terraform init -input=false
