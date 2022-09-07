@@ -22,7 +22,7 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "myTFResourceGroup"
-  location = "westus2"
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources-2"
+  location = "West Europe"
 }
