@@ -7,6 +7,14 @@ terraform {
     }
   }
 
+  cloud {
+    organization = "armin-mesic"
+
+    workspaces {
+      name = "azure-infra-dev"
+    }
+  }
+
   required_version = ">= 1.1.0"
 }
 
