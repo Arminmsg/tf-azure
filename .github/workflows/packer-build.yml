@@ -60,10 +60,7 @@ jobs:
         run: terraform fmt
 
       - name: Terraform Plan
-        run: terraform plan -input=false
-        with:
-          variables: |
-            ARM_CLIENT_ID = "${{ steps.secrets.outputs.ARM_CLIENT_ID }}"
+        run: terraform plan -var="ARM_CLIENT_ID=${{ steps.secrets.outputs.ARM_CLIENT_ID }}" -var="ARM_CLIENT_SECRET=${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}" -input=false
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
