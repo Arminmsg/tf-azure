@@ -46,9 +46,12 @@ jobs:
           cli_config_credentials_token: ${{ steps.secrets.outputs.TFC_TOKEN }}
           cli_config_credentials_hostname: 'app.terraform.io'
           variables: |
+            ARM_CLIENT_ID: ${{ steps.secrets.outputs.ARM_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}
         env:
           ARM_CLIENT_ID: ${{ steps.secrets.outputs.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}
+        
 
       - name: Terraform Init
         run: terraform init -input=false

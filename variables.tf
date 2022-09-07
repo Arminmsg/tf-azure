@@ -9,6 +9,3 @@ variable "ARM_CLIENT_ID" {
 
 variable "ARM_CLIENT_SECRET" {
 }
-
-variable "application_object_id" {
-}
