@@ -31,6 +31,8 @@ jobs:
           role: github-actions
           secrets: |
             cloud-secrets/data/tfc-secret TFC_TOKEN | TFC_TOKEN ;
+            azure/creds/dev client_id | ARM_CLIENT_ID ;
+            azure/creds/dev client_secret | ARM_CLIENT_SECRET 
 
       - name: Sleep for 30 seconds
         run: sleep 30s
