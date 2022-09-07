@@ -49,22 +49,13 @@ jobs:
 
       - name: Terraform Init
         run: terraform init -input=false
-        env:
-          TF_WORKSPACE: "azure-infra-dev"
-          TF_IN_AUTOMATION: "true"
 
       - name: Terraform Format
         run: terraform fmt
 
       - name: Terraform Plan
         run: terraform plan -input=false
-        env:
-          TF_WORKSPACE: "azure-infra-dev"
-          TF_IN_AUTOMATION: "true"
 
       - name: Terraform Apply
         run: terraform apply -input=false
-        env:
-          TF_WORKSPACE: "azure-infra-dev"
-          TF_IN_AUTOMATION: "true"
             
