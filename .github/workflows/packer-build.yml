@@ -8,12 +8,13 @@ on:
     #  - 03.packer/*
 
 jobs:
-  packer:
+  DeployDev:
     permissions:
       contents: read
       id-token: write
     runs-on: ubuntu-latest
-    name: azure-build
+    name: Deploy to Dev
+    if: github.event_name == 'pull_request'
 
     steps:
       - name: Checkout Repository
@@ -23,7 +24,6 @@ jobs:
         id: secrets
         uses: hashicorp/vault-action@v2.4.0
         with:
-          #Shared Runner needs public facing IP of HCP Vault        
           url: https://hcp-vault-cluster-public-vault-e5830e3d.85b50f4b.z1.hashicorp.cloud:8200
           exportToken: true
           namespace: admin
@@ -37,4 +37,33 @@ jobs:
       - name: Sleep for 30 seconds
         run: sleep 30s
         shell: bash
-          
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ steps.secrets.outputs.TFC_TOKEN }}
+          cli_config_credentials_hostname: 'app.terraform.io'
+          ARM_CLIENT_ID: ${{ steps.secrets.outputs.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}
+
+      - name: Terraform Init
+        run: terraform init -input=false
+        env:
+          TF_WORKSPACE: "azure-infra-dev"
+          TF_IN_AUTOMATION: "true"
+
+      - name: Terraform Format
+        run: terraform fmt
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
+        env:
+          TF_WORKSPACE: "azure-infra-dev"
+          TF_IN_AUTOMATION: "true"
+
+      - name: Terraform Apply
+        run: terraform apply -input=false
+        env:
+          TF_WORKSPACE: "azure-infra-dev"
+          TF_IN_AUTOMATION: "true"
+            
