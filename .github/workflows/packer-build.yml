@@ -30,8 +30,7 @@ jobs:
           method: jwt
           role: github-actions
           secrets: |
-            cloud-secrets/data/hcp-secret HCP_CLIENT_ID | HCP_CLIENT_ID ;
-            cloud-secrets/data/hcp-secret HCP_CLIENT_SECRET | HCP_CLIENT_SECRET ;
+            cloud-secrets/data/tfc-secret TFC_TOKEN | TFC_TOKEN ;
 
       - name: Sleep for 30 seconds
         run: sleep 30s
