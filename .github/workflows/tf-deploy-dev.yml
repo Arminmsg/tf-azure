@@ -4,6 +4,8 @@ name: TF-Plan
 
 on:
   push:
+    branches:
+      - dev
 
 jobs:
   DeployDev:
