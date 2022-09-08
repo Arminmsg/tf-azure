@@ -1,6 +1,6 @@
 ---
 
-name: Packer
+name: TF-Deploy
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     name: Deploy to Dev
-    #if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request'
 
     steps:
       - name: Checkout Repository
@@ -46,7 +46,6 @@ jobs:
           cli_config_credentials_token: ${{ steps.secrets.outputs.TFC_TOKEN }}
           cli_config_credentials_hostname: 'app.terraform.io'
         
-
       - name: Terraform Init
         run: terraform init -input=false
 
@@ -58,4 +57,3 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply  -var="ARM_CLIENT_ID=${{ steps.secrets.outputs.ARM_CLIENT_ID }}" -var="ARM_CLIENT_SECRET=${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}" -auto-approve -input=false
-            
