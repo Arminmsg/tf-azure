@@ -32,7 +32,7 @@ resource "azurerm_resource_group" "example" {
 }
 
 resource "azurerm_service_plan" "example" {
-  name                = "${var.prefix}-sp"
+  name                = "demo-sp"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   os_type             = "Linux"
