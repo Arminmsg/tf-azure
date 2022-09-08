@@ -14,7 +14,6 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     name: Deploy to Dev
-    if: github.event_name == 'pull_request'
 
     steps:
       - name: Checkout Repository
@@ -56,4 +55,5 @@ jobs:
         run: terraform plan -var="ARM_CLIENT_ID=${{ steps.secrets.outputs.ARM_CLIENT_ID }}" -var="ARM_CLIENT_SECRET=${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}" -input=false
 
       - name: Terraform Apply
+        if: ${{ github.event.pull_request.merged }}
         run: terraform apply  -var="ARM_CLIENT_ID=${{ steps.secrets.outputs.ARM_CLIENT_ID }}" -var="ARM_CLIENT_SECRET=${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}" -auto-approve -input=false
