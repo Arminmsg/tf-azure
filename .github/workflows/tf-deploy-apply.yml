@@ -1,0 +1,55 @@
+---
+
+name: TF-Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  DeployDev:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    name: Deploy to Dev
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Retrieve Secrets from HashiCorp Vault
+        id: secrets
+        uses: hashicorp/vault-action@v2.4.0
+        with:
+          url: https://hcp-vault-cluster-public-vault-e5830e3d.85b50f4b.z1.hashicorp.cloud:8200
+          exportToken: true
+          namespace: admin
+          method: jwt
+          role: github-actions
+          secrets: |
+            cloud-secrets/data/tfc-secret TFC_TOKEN | TFC_TOKEN ;
+            cloud-secrets/data/tfc-secret ARM_TENANT_ID | ARM_TENANT_ID ;
+            cloud-secrets/data/tfc-secret ARM_SUBSCRIPTION_ID | ARM_SUBSCRIPTION_ID ;
+            azure/creds/dev client_id | ARM_CLIENT_ID ;
+            azure/creds/dev client_secret | ARM_CLIENT_SECRET 
+            
+      - name: Sleep for 15 seconds
+        run: sleep 15s
+        shell: bash
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ steps.secrets.outputs.TFC_TOKEN }}
+          cli_config_credentials_hostname: 'app.terraform.io'
+        
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Format
+        run: terraform fmt
+
+      - name: Terraform Apply
+        run: terraform apply  -var="ARM_CLIENT_ID=${{ steps.secrets.outputs.ARM_CLIENT_ID }}" -var="ARM_CLIENT_SECRET=${{ steps.secrets.outputs.ARM_CLIENT_SECRET }}" -auto-approve -input=false
