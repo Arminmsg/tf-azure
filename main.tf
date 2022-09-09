@@ -37,6 +37,10 @@ resource "azurerm_service_plan" "example" {
   resource_group_name = azurerm_resource_group.example.name
   os_type             = "Linux"
   sku_name            = "S1"
+
+  tags                = {
+    "environment" = "dev"
+  } 
 }
 
 
@@ -46,6 +50,11 @@ resource "azurerm_linux_web_app" "example" {
   resource_group_name = azurerm_resource_group.example.name
   service_plan_id     = azurerm_service_plan.example.id
   enabled             = true
+
+  tags                = {
+    "environment" = "dev"
+  } 
+
 
   site_config {
     application_stack {
