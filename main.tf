@@ -29,6 +29,9 @@ provider "azurerm" {
 resource "azurerm_resource_group" "example" {
   name     = "demo-resources-oss"
   location = "West Europe"
+  tags = {
+    "environment" = "dev"
+  }
 }
 
 resource "azurerm_service_plan" "example" {
@@ -45,6 +48,11 @@ resource "azurerm_linux_web_app" "example" {
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   service_plan_id     = azurerm_service_plan.example.id
+  enabled             = true 
+
+  tags = {
+    "environment" = "dev"
+  }
 
   site_config {
     application_stack {
