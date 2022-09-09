@@ -25,7 +25,7 @@ provider "azurerm" {
   client_id               = var.ARM_CLIENT_ID
   client_secret           = var.ARM_CLIENT_SECRET
 }
-
+/**
 resource "azurerm_resource_group" "example" {
   name     = "demo-resources-oss"
   location = "West Europe"
@@ -59,4 +59,4 @@ resource "azurerm_linux_web_app" "example" {
       python_version = var.python_version
     }
   }
-}
+}**/
