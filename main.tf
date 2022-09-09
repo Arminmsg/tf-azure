@@ -29,6 +29,10 @@ provider "azurerm" {
 resource "azurerm_resource_group" "example" {
   name     = "demo-resources-oss"
   location = "West Europe"
+
+  tags                = {
+    "environment" = "dev"
+  } 
 }
 
 resource "azurerm_service_plan" "example" {
