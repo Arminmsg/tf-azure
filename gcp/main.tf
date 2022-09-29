@@ -27,9 +27,9 @@ provider "google" {
 }
 
 variable "region" {
-  value = "us-central1"
+  default = "us-central1"
 }
 
 variable "project_id" {
-  value = "project_id"
+  default = "project_id"
 }
