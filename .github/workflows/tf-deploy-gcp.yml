@@ -53,3 +53,7 @@ jobs:
       - name: Terraform Plan
         working-directory: ./gcp
         run: terraform plan -input=false -var="GCP_ACCESS_TOKEN=${{ steps.secrets.outputs.GCP_ACCESS_TOKEN }}"
+      
+      - name: Terraform Apply
+        working-directory: ./gcp
+        run: terraform apply  -var="GCP_ACCESS_TOKEN=${{ steps.secrets.outputs.GCP_ACCESS_TOKEN }}"
