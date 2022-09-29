@@ -30,7 +30,7 @@ jobs:
           role: github-actions
           secrets: |
             cloud-secrets/data/tfc-secret TFC_TOKEN | TFC_TOKEN ;
-            gcp/roleset/my-token-roleset/token token | TOKEN ;
+            gcp/roleset/my-token-roleset/token token | GCP_ACCESS_TOKEN ;
             
       - name: Sleep for 10 seconds
         run: sleep 10s
@@ -52,4 +52,4 @@ jobs:
 
       - name: Terraform Plan
         working-directory: ./gcp
-        run: terraform plan -input=false
+        run: terraform plan -input=false -var="GCP_ACCESS_TOKEN=${{ steps.secrets.outputs.GCP_ACCESS_TOKEN }}"
