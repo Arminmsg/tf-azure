@@ -32,8 +32,8 @@ jobs:
             cloud-secrets/data/tfc-secret TFC_TOKEN | TFC_TOKEN ;
             gcp/roleset/my-token-roleset/token token | TOKEN ;
             
-      - name: Sleep for 15 seconds
-        run: sleep 15s
+      - name: Sleep for 10 seconds
+        run: sleep 10s
         shell: bash
 
       - name: Setup Terraform
@@ -41,3 +41,17 @@ jobs:
         with:
           cli_config_credentials_token: ${{ steps.secrets.outputs.TFC_TOKEN }}
           cli_config_credentials_hostname: 'app.terraform.io'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ steps.secrets.outputs.TFC_TOKEN }}
+          cli_config_credentials_hostname: 'app.terraform.io'
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Format
+        run: terraform fmt
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
