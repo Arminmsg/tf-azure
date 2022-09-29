@@ -3,7 +3,7 @@ terraform {
   required_providers {
     google = {
       source = "hashicorp/google"
-      version = "3.5.0"
+      version = "3.52.0"
     }
   }
 
@@ -15,17 +15,21 @@ terraform {
     }
   }
 
-  required_version = ">= 1.1.0"
+  required_version = ">= 0.14"
 }
 
 provider "google" {
   access_token = var.GCP_ACCESS_TOKEN
 
-  project = "main-tokenizer-364009"
-  region  = "us-central1"
+  project = var.project_id
+  region  = var.region
   zone    = "us-central1-c"
 }
 
-resource "google_compute_network" "vpc_network" {
-  name = "terraform-network"
+variable "region" {
+  value = "us-central1"
+}
+
+variable "project_id" {
+  value = "project_id"
 }
