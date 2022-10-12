@@ -25,7 +25,7 @@ provider "azurerm" {
   client_id               = var.ARM_CLIENT_ID
   client_secret           = var.ARM_CLIENT_SECRET
 }
-/**
+
 resource "azurerm_resource_group" "example" {
   name     = "demo-resources-oss"
   location = "West Europe"
@@ -33,7 +33,7 @@ resource "azurerm_resource_group" "example" {
     "environment" = "dev"
   }
 }
-
+/**
 resource "azurerm_service_plan" "example" {
   name                = "demo-sp"
   location            = azurerm_resource_group.example.location
