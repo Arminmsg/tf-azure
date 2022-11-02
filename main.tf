@@ -51,7 +51,7 @@ resource "azurerm_linux_web_app" "example" {
   enabled             = true 
 
   tags = {
-    "environment" = "dev"
+    "environment" = "dev-2"
   }
 
   site_config {
