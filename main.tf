@@ -30,7 +30,7 @@ resource "azurerm_resource_group" "example" {
   name     = "demo-resources-oss-2"
   location = "West Europe"
   tags = {
-    "environment" = "dev"
+    "environment" = "dev-2"
   }
 }
 
